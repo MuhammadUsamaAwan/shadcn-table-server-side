@@ -14,21 +14,14 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TechNest - High-Quality Computer Parts',
+        title: 'Advanced Shadcn Table',
       },
       {
         name: 'description',
-        content: 'Buy High-Quality Computer Parts Online - Best Deals & Fast Shipping',
+        content: 'Shadcn Table with server-side pagination, filtering & sorting',
       },
     ],
-    links: [
-      { rel: 'stylesheet', href: globalCss },
-      {
-        rel: 'icon',
-        type: 'image/svg+xml',
-        href: '/favicon.svg',
-      },
-    ],
+    links: [{ rel: 'stylesheet', href: globalCss }],
   }),
   component: RootComponent,
 });

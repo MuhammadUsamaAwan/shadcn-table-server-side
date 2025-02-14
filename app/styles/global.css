@@ -4,41 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@font-face {
-  font-family: 'Geist';
-  src: url('../assets/fonts/Geist-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Geist';
-  src: url('../assets/fonts/Geist-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Geist';
-  src: url('../assets/fonts/Geist-SemiBold.woff2') format('woff2');
-  font-weight: 600;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Geist';
-  src: url('../assets/fonts//Geist-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Geist';
-  src: url('../assets/fonts/Geist-ExtraBold.woff2') format('woff2');
-  font-weight: 800;
-  font-display: swap;
-}
-
 :root {
   --background: hsl(0 0% 100%);
   --foreground: hsl(224 71.4% 4.1%);
@@ -111,7 +76,6 @@
 }
 
 @theme inline {
-  --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -157,7 +121,9 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
   }
+}
 
+@layer base {
   ::-webkit-scrollbar {
     width: 5px;
   }

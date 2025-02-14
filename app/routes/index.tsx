@@ -1,7 +1,8 @@
-import { useMemo } from 'react';
+import { Suspense, useMemo } from 'react';
 
 import { createFileRoute } from '@tanstack/react-router';
 import type { ColumnDef } from '@tanstack/react-table';
+import { getProductsSchema } from '~/validations/product';
 
 import type { Product } from '~/db/schema';
 import { getProducts } from '~/server/product';
@@ -9,11 +10,12 @@ import { DataTable } from '~/components/data-table';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
-  loader: () => getProducts(),
+  validateSearch: search => getProductsSchema.parse(search),
+  loaderDeps: async ({ search: { pageIndex, pageSize } }) => await getProducts({ data: { pageIndex, pageSize } }),
 });
 
 function RouteComponent() {
-  const products = Route.useLoaderData();
+  const promise = Route.useLoaderDeps();
 
   const columns: ColumnDef<Product>[] = useMemo(
     () => [
@@ -43,7 +45,9 @@ function RouteComponent() {
 
   return (
     <div className='container mx-auto py-10'>
-      <DataTable columns={columns} data={products} />
+      <Suspense fallback='Loading...'>
+        <DataTable columns={columns} promise={promise} />
+      </Suspense>
     </div>
   );
 }
