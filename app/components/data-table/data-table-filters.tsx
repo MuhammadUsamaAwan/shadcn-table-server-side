@@ -5,9 +5,8 @@ import type { Table } from '@tanstack/react-table';
 import { useDebounce } from '~/hooks/use-debounce';
 
 import { toSentenceCase } from '~/lib/utils';
-
-import { Input } from '../ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { Input } from '~/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select';
 
 type DataTableFiltersProps<T> = {
   table: Table<T>;
@@ -30,11 +29,11 @@ export function DataTableFilters<T>({ table }: DataTableFiltersProps<T>) {
 
   const filterableColumnNames = table
     .getAllColumns()
-    .filter(column => column.columnDef.enableColumnFilter)
+    .filter(column => column.getCanFilter())
     .map(column => column.id);
 
   return (
-    <div className='flex items-center gap-2'>
+    <div className='flex flex-1 items-center gap-2'>
       <Select
         value={search.filterBy}
         onValueChange={val => {

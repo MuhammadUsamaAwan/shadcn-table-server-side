@@ -7,6 +7,7 @@ import { getProductsSchema } from '~/validations/product';
 import type { Product } from '~/db/schema';
 import { getProducts } from '~/server/product';
 import { DataTable } from '~/components/data-table';
+import { DataTableColumnHeader } from '~/components/data-table/data-table-column-header';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
@@ -22,26 +23,23 @@ function RouteComponent() {
     () => [
       {
         accessorKey: 'name',
-        header: 'Name',
-        enableColumnFilter: true,
+        header: ({ column }) => <DataTableColumnHeader column={column} title='Name' />,
       },
       {
         accessorKey: 'description',
-        header: 'Description',
-        enableColumnFilter: true,
+        header: ({ column }) => <DataTableColumnHeader column={column} title='Description' />,
       },
       {
         accessorKey: 'price',
-        header: 'Price',
+        header: ({ column }) => <DataTableColumnHeader column={column} title='Price' />,
       },
       {
         accessorKey: 'category',
-        header: 'Category',
-        enableColumnFilter: true,
+        header: ({ column }) => <DataTableColumnHeader column={column} title='Category' />,
       },
       {
         accessorKey: 'stock',
-        header: 'Stock',
+        header: ({ column }) => <DataTableColumnHeader column={column} title='Stock' />,
       },
     ],
     []
