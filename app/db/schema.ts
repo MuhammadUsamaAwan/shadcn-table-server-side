@@ -10,5 +10,3 @@ export const productsTable = pgTable('products', {
   stock: integer().notNull(),
   createdAt: timestamp().notNull().defaultNow(),
 });
-
-export type Product = typeof productsTable.$inferSelect;

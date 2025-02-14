@@ -4,7 +4,6 @@ import { createFileRoute } from '@tanstack/react-router';
 import type { ColumnDef } from '@tanstack/react-table';
 import { getProductsSchema } from '~/validations/product';
 
-import type { Product } from '~/db/schema';
 import { getProducts } from '~/server/product';
 import { DataTable } from '~/components/data-table';
 import { DataTableColumnHeader } from '~/components/data-table/data-table-column-header';
@@ -19,7 +18,7 @@ export const Route = createFileRoute('/')({
 function RouteComponent() {
   const data = Route.useLoaderData();
 
-  const columns: ColumnDef<Product>[] = useMemo(
+  const columns: ColumnDef<(typeof data)['data'][number]>[] = useMemo(
     () => [
       {
         accessorKey: 'name',

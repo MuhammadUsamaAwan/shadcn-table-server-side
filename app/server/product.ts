@@ -12,6 +12,7 @@ export const getProducts = createServerFn()
       data.filterBy && data.q ? ilike(productsTable[data.filterBy], `%${data.q}%`) : undefined
     );
     const sortDirection = data.sortDirection === 'asc' ? asc : desc;
+    const sort = sortDirection(productsTable[data.sortBy ?? 'createdAt']);
 
     const dataResultPromise = db
       .select()
@@ -19,7 +20,7 @@ export const getProducts = createServerFn()
       .where(whereConditions)
       .limit(data.pageSize)
       .offset(data.pageIndex * data.pageSize)
-      .orderBy(sortDirection(productsTable[data.sortBy ?? 'createdAt']));
+      .orderBy(sort);
     const countResultPromise = db.select({ count: count() }).from(productsTable).where(whereConditions);
     const [dataResult, countResult] = await Promise.all([dataResultPromise, countResultPromise]);
     return {
