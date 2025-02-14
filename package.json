@@ -14,9 +14,11 @@
     "db:studio": "drizzle-kit studio",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
+    "db:seed": "bun app/db/seed.ts",
     "shadcn:add": "pnpm dlx shadcn@canary add"
   },
   "dependencies": {
+    "@faker-js/faker": "^9.5.0",
     "@tailwindcss/vite": "^4.0.5",
     "@tanstack/react-router": "^1.102.1",
     "@tanstack/react-table": "^8.21.2",
