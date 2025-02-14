@@ -1,6 +1,6 @@
-import { Suspense, useMemo } from 'react';
+import { useMemo } from 'react';
 
-import { Await, createFileRoute } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import type { ColumnDef } from '@tanstack/react-table';
 import { getProductsSchema } from '~/validations/product';
 
@@ -11,26 +11,24 @@ import { DataTable } from '~/components/data-table';
 export const Route = createFileRoute('/')({
   component: RouteComponent,
   validateSearch: search => getProductsSchema.parse(search),
-  loaderDeps: ({ search: { pageIndex, pageSize } }) => ({ pageIndex, pageSize }),
-  loader: ({ deps: { pageIndex, pageSize } }) => {
-    return {
-      promise: getProducts({ data: { pageIndex, pageSize } }),
-    };
-  },
+  loaderDeps: ({ search }) => search,
+  loader: ({ deps }) => getProducts({ data: deps }),
 });
 
 function RouteComponent() {
-  const { promise } = Route.useLoaderData();
+  const data = Route.useLoaderData();
 
   const columns: ColumnDef<Product>[] = useMemo(
     () => [
       {
         accessorKey: 'name',
         header: 'Name',
+        enableColumnFilter: true,
       },
       {
         accessorKey: 'description',
         header: 'Description',
+        enableColumnFilter: true,
       },
       {
         accessorKey: 'price',
@@ -39,6 +37,7 @@ function RouteComponent() {
       {
         accessorKey: 'category',
         header: 'Category',
+        enableColumnFilter: true,
       },
       {
         accessorKey: 'stock',
@@ -50,9 +49,7 @@ function RouteComponent() {
 
   return (
     <div className='container mx-auto py-10'>
-      <Await promise={promise} fallback='Loading...'>
-        {data => <DataTable columns={columns} data={data} />}
-      </Await>
+      <DataTable columns={columns} data={data} />
     </div>
   );
 }

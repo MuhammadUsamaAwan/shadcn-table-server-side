@@ -3,6 +3,7 @@ import { flexRender, getCoreRowModel, useReactTable, type ColumnDef } from '@tan
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table';
 
+import { DataTableFilters } from './data-table-filters';
 import { DataTablePagination } from './data-table-pagination';
 
 type DataTableProps<TData, TValue> = {
@@ -41,6 +42,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 
   return (
     <div className='space-y-4'>
+      <DataTableFilters table={table} />
       <div className='rounded-md border'>
         <Table>
           <TableHeader>
