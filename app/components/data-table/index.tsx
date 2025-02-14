@@ -1,5 +1,3 @@
-import { use } from 'react';
-
 import { useLocation, useNavigate } from '@tanstack/react-router';
 import { flexRender, getCoreRowModel, useReactTable, type ColumnDef } from '@tanstack/react-table';
 
@@ -9,20 +7,19 @@ import { DataTablePagination } from './data-table-pagination';
 
 type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
-  promise: Promise<{ data: TData[]; rowCount: number }>;
+  data: { data: TData[]; rowCount: number };
 };
 
-export function DataTable<TData, TValue>({ columns, promise }: DataTableProps<TData, TValue>) {
-  const { data, rowCount } = use(promise);
+export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
   const navigate = useNavigate();
   const { search } = useLocation();
 
   const table = useReactTable({
-    data,
+    data: data.data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     manualPagination: true,
-    rowCount,
+    rowCount: data.rowCount,
     state: {
       pagination: {
         pageIndex: Number(search.pageIndex ?? '0'),
@@ -34,6 +31,7 @@ export function DataTable<TData, TValue>({ columns, promise }: DataTableProps<TD
       navigate({
         search: {
           ...search,
+          // @ts-expect-error fix later
           pageIndex: pagination.pageIndex,
           pageSize: pagination.pageSize,
         },
