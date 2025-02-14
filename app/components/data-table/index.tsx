@@ -23,8 +23,8 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     rowCount: data.rowCount,
     state: {
       pagination: {
-        pageIndex: Number(search.pageIndex ?? '0'),
-        pageSize: Number(search.pageSize ?? '10'),
+        pageIndex: search.pageIndex ?? 0,
+        pageSize: search.pageSize ?? 10,
       },
     },
     onPaginationChange: updater => {

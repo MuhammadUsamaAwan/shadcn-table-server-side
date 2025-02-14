@@ -11,10 +11,10 @@ import {
   DropdownMenuTrigger,
 } from '~/components/ui/dropdown-menu';
 
-interface DataTableColumnHeaderProps<TData, TValue> extends React.HTMLAttributes<HTMLDivElement> {
+type DataTableColumnHeaderProps<TData, TValue> = React.HTMLAttributes<HTMLDivElement> & {
   column: Column<TData, TValue>;
   title: string;
-}
+};
 
 export function DataTableColumnHeader<TData, TValue>({
   column,
@@ -37,7 +37,6 @@ export function DataTableColumnHeader<TData, TValue>({
         <DropdownMenuTrigger asChild>
           <Button variant='ghost' size='sm' className='data-[state=open]:bg-accent -ml-3 h-8'>
             <span>{title}</span>
-
             {isColumnSorted ? sortDirection === 'asc' ? <ArrowUp /> : <ArrowDown /> : <ChevronsUpDown />}
           </Button>
         </DropdownMenuTrigger>
@@ -47,7 +46,7 @@ export function DataTableColumnHeader<TData, TValue>({
               navigate({
                 search: {
                   ...search,
-                  // @ts-expect-error fix later
+                  // @ts-expect-error for ease of use
                   sortBy: column.id,
                   sortDirection: 'asc',
                 },
@@ -62,7 +61,7 @@ export function DataTableColumnHeader<TData, TValue>({
               navigate({
                 search: {
                   ...search,
-                  // @ts-expect-error fix later
+                  // @ts-expect-error for ease of use
                   sortBy: column.id,
                   sortDirection: 'desc',
                 },
@@ -77,7 +76,7 @@ export function DataTableColumnHeader<TData, TValue>({
               navigate({
                 search: {
                   ...search,
-                  // @ts-expect-error fix later
+                  // @ts-expect-error for ease of use
                   sortBy: undefined,
                 },
               });
