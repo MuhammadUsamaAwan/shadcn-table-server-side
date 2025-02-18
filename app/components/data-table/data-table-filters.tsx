@@ -36,7 +36,7 @@ export function DataTableFilters<T>({ table }: DataTableFiltersProps<T>) {
   return (
     <div className='flex flex-1 items-center gap-2'>
       <Select
-        value={search.filterBy}
+        value={search.filterBy ?? ''}
         onValueChange={val => {
           // @ts-expect-error for ease of use
           navigate({ search: { ...search, filterBy: val } });
